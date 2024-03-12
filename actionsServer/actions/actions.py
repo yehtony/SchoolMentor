@@ -13,13 +13,29 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from .models import callGPT_AnswerQuestion
 from .db import getKN
+from .document import *
+import base64
 import json
 import os
 
 
+def decrypt(decoded_text):
+    SecretKey = "20240116";
+    decoded_text = base64.b64decode(decoded_text).decode('utf-8')
+    result = ''
+    for i in range(len(decoded_text)):
+        charCode = ord(decoded_text[i]) ^ ord(SecretKey[i % len(SecretKey)])
+        result += chr(charCode)
+    assert len(result.split("."))==4
+    return result
 def send(d: CollectingDispatcher, obj: Any): d.utter_message(str(obj))
-def getStage(t: Tracker): return t.get_slot('stage')
+def getSlot_StoryStage(t: Tracker): return t.get_slot('story_stage')
 def getUserLatestMEG(t: Tracker): return t.latest_message
+def getUserText(t: Tracker): return getUserLatestMEG(t)["text"]
+def getUserId(t: Tracker): return decrypt(t.sender_id)
+client = createClient()
+assert(checkClient(client))
+
 
 class ActionFAQ(Action):
 
@@ -30,8 +46,17 @@ class ActionFAQ(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        obj_TLM =getUserLatestMEG(tracker)
+        #
+        REDISLABELSTATUS = getUserId(tracker)
+        REDISLABELCOUNT = getUserId(tracker)+"-ROUNDCOUNT"
+        userStatus = getByKey(client, REDISLABELSTATUS)
+        userStatus = userStatus if userStatus is not None else {}
+        roundCount = getByKey(client, REDISLABELCOUNT)
+        roundCount = roundCount if roundCount is not None else 1
 
+
+        #
+        obj_TLM =getUserLatestMEG(tracker)
         faqRanking: list[Dict[str,Any]] = obj_TLM["response_selector"]['faq']['ranking']
         userText: str = obj_TLM["text"]
         topOneKey: str = faqRanking[0]['intent_response_key'][4:]
@@ -42,13 +67,17 @@ class ActionFAQ(Action):
         if os.environ.get("ActionServerMode", None) == "debug":
             dispatcher.utter_message(text=str(rqBody))
 
-        stage = getStage(tracker)
         # dispatcher.utter_message(text="get_slot(newQuestion): "+str(slotNewQuestion))
         # dispatcher.utter_message(text="get_slot(newQuestion): "+str(userContent))
 
         # dispatcher.utter_message(text=f"text_latest_message"+text_latest_message)
         # gptResponse = callGPT_finetuneQuestion(userContent)
         # dispatcher.utter_message(text=gptResponse)
+
+        #
+        # updateDocuments(client, [{"key":REDISLABELCOUNT, "value": roundCount+1}])
+
+
         return [
             SlotSet("stage", "CustomAction")
         ]

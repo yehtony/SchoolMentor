@@ -13,6 +13,9 @@ services:
       - ActionServerMode=
     # entrypoint: /bin/bash -c "pip install -r requirement.txt && rasa run actions"
     command: run actions
+    depends_on:
+      - training-model
+      - redis 
 
   training-model:
     image: rasa/rasa:3.6.6-full
@@ -21,18 +24,18 @@ services:
     working_dir: /app
     volumes:
       - ./actionsServer:/app
-    command: train
-  test-model:
-    image: rasa/rasa:3.6.6-full
-    security_opt:
-      - seccomp:unconfined
-    working_dir: /app
-    volumes:
-      - ./actionsServer:/app
-    depends_on:
-      training-model: 
-        condition: service_completed_successfully
-    command: test
+    command: --help #train
+  # test-model:
+  #   image: rasa/rasa:3.6.6-full
+  #   security_opt:
+  #     - seccomp:unconfined
+  #   working_dir: /app
+  #   volumes:
+  #     - ./actionsServer:/app
+  #   depends_on:
+  #     training-model: 
+  #       condition: service_completed_successfully
+  #   command: test
 
 
   rasa-botServer:
@@ -52,9 +55,18 @@ services:
       - "5005:5005"
       - "5006:5006"
   web:
-    image: nginx:alpine
+    image: node:20.8.1
     ports:
       - "80:80"
     volumes:
-      - ./web:/usr/share/nginx/html
+      - ./botroom:/app
+    command: sh -c "cd /app && rm -rf .git/hooks && npm install  && npm install -g serve && npm run build && serve -s ./build -l 80"
+
+  redis:
+    image: redis/redis-stack
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --protected-mode no  --loadmodule /opt/redis-stack/lib/redisearch.so --loadmodule /opt/redis-stack/lib/rejson.so
+    # volumes:
+    #   - ./redis-data:/data
 
