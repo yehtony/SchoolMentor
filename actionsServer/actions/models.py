@@ -8,7 +8,6 @@ def genExample(example: Dict[str, str]): return  [
     {"role": "assistant", "content": example["answer"]}
 ]
 def callGpt(
-        userText: str,
         messages: List[Any],
         temperature: float = 0.3
     ) -> str:
@@ -37,19 +36,21 @@ def callGpt(
         return "ERROR:"+str(response.text)
 
 
-# def callGPT_finetuneQuestion(userText: str) -> str:
-#         return callGpt(userText, [
-#                 {
-#                     "role": "system",
-#                     "content": """
-#                     我們是一個自然科的討論課程，你是這堂課的教師，你負責將學生的問題優化另一個問題，請理解學生的問題後提出更明確的問題。
-#                     切記我們不提出自然以外的內容，所有提出的問題維持在自然領域之中。
-#                     """
-#                 },
-#                 {"role": "user", "content": "蜘蛛 八隻腳"},
-#                 {"role": "assistant", "content": "請問蜘蛛是八隻腳嗎"},
-#                 {"role": "user", "content": userText}
-#         ],0.3)
+def callGPT_finetuneQuestion(userText: str) -> str:
+        return callGpt([
+                {
+                    "role": "system",
+                    "content": """
+                    我們是一個自然科的討論課程，你是這堂課的教師，你負責將學生的問題優化另一個問題，請理解學生的問題後提出更明確的問題。
+                    切記我們不提出自然以外的內容，所有提出的問題維持在自然領域之中。
+
+                    ### examples:
+                    user: 蜘蛛 八隻腳
+                    assistant: 請問蜘蛛是八隻腳嗎?
+                    """
+                },
+                {"role": "user", "content": userText}
+        ],0.3)
 
 def callGPT_AnswerQuestion(examples: List[Dict[str, str]],userText: str) -> (str, List[Dict[str,str]]):
 
@@ -67,5 +68,5 @@ def callGPT_AnswerQuestion(examples: List[Dict[str, str]],userText: str) -> (str
             body.extend(genExample(e))
         
         body.extend([{"role": "user", "content": userText}])
-        return callGpt(userText, body,0.7), body
+        return callGpt(body,0.7), body
         

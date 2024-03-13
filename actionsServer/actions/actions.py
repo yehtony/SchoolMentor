@@ -62,20 +62,24 @@ class ActionFAQ(Action):
         topOneKey: str = faqRanking[0]['intent_response_key'][4:]
         topOneConf: float = faqRanking[0]['confidence']
         examples: List[Dict[str, str]] = getKN(topOneKey)
-        result, rqBody = callGPT_AnswerQuestion(examples, userText)
-        dispatcher.utter_message(text=result)
-        if os.environ.get("ActionServerMode", None) == "debug":
-            dispatcher.utter_message(text=str(rqBody))
+        # dispatcher.utter_message(text="*** Hi It's Action Server")
+        # dispatcher.utter_message(text="*** topOneConf: "+str(topOneConf))
+        # dispatcher.utter_message(text="*** faqRanking: "+str(faqRanking))
+        if topOneConf > 0.9:
+            result, rqBody = callGPT_AnswerQuestion(examples, userText)
+            dispatcher.utter_message(text=result)
+            if os.environ.get("ActionServerMode", None) == "debug":
+                dispatcher.utter_message(text=str(rqBody))
+            dispatcher.utter_message(text=str(examples))
+        elif 0.75<topOneConf<=0.9:
 
-        # dispatcher.utter_message(text="get_slot(newQuestion): "+str(slotNewQuestion))
-        # dispatcher.utter_message(text="get_slot(newQuestion): "+str(userContent))
+            # dispatcher.utter_message(text=f"text_latest_message"+text_latest_message)
+            result, rqBody = callGPT_finetuneQuestion(userText)
+            dispatcher.utter_message(text=result)
+            # dispatcher.utter_message(text=gptResponse)
 
-        # dispatcher.utter_message(text=f"text_latest_message"+text_latest_message)
-        # gptResponse = callGPT_finetuneQuestion(userContent)
-        # dispatcher.utter_message(text=gptResponse)
-
-        #
-        # updateDocuments(client, [{"key":REDISLABELCOUNT, "value": roundCount+1}])
+            #
+            # updateDocuments(client, [{"key":REDISLABELCOUNT, "value": roundCount+1}])
 
 
         return [
