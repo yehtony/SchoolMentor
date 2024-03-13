@@ -30,7 +30,7 @@ const App = () => {
   }, []);
 
   if (messages.length==0){
-    const defaultMessage ={ id: messages.length + 1, text: "How do you think about this topic?", sender: 'Bot' , className_p: "message_bot_p" , className_span: "message_bot_span"}
+    const defaultMessage ={ id: messages.length + 1, text: "哈囉! 有什麼想提問的嗎", sender: 'Bot' , className_p: "message_bot_p" , className_span: "message_bot_span"}
     setMessages(messages => [...messages, defaultMessage] );
   }
 

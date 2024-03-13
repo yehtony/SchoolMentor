@@ -70,7 +70,7 @@ class ActionFAQ(Action):
             dispatcher.utter_message(text=result)
             if os.environ.get("ActionServerMode", None) == "debug":
                 dispatcher.utter_message(text=str(rqBody))
-            dispatcher.utter_message(text=str(examples))
+            # dispatcher.utter_message(text=str(examples))
         elif 0.75<topOneConf<=0.9:
 
             # dispatcher.utter_message(text=f"text_latest_message"+text_latest_message)
