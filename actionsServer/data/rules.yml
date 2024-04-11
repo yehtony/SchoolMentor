@@ -11,3 +11,8 @@ rules:
   steps:
   - intent: faq
   - action: action_faq
+
+- rule: metatalkdivergentthinking
+  steps:
+  - intent: divergentthinkingproblem
+  - action: divergentthinkingzero

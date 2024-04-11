@@ -3,13 +3,13 @@ version: "3.1"
 intents:
   - faq
   - other
+  - divergentthinkingproblem
 
 responses:
   utter_other/chitchat:
   - text: "哈囉 我是學習小幫手！目前學習上有遇到什麼問題嗎"
-
-
-
+  divergentthinkingzero:
+  - text: "想法發散 Meta-Talk"
 
 
 session_config:
@@ -19,6 +19,7 @@ session_config:
 actions:
   - action_faq
   - utter_other/chitchat
+  - divergentthinkingzero
 
 slots:
   stage:

@@ -52,3 +52,13 @@ class ActionFAQ(Action):
         return [
             SlotSet("stage", "CustomAction")
         ]
+
+class ActionDivergentThinkingZero(Action):
+    def name(self) -> Text:
+        return "divergentthinkingzero"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(text="想法發散 Meta-Talk")
+        return []
