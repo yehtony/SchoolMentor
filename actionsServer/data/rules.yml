@@ -2,17 +2,12 @@ version: "3.1"
 
 rules:
 
-- rule: For Chit Chat
-  steps:
-  - intent: other
-  - action: utter_other/chitchat
+# - rule: For Chit Chat
+#   steps:
+#   - intent: other
+#   - action: utter_other/chitchat
 
-- rule: FAQ Stage
-  steps:
-  - intent: faq
-  - action: action_faq
-
-- rule: metatalkdivergentthinking
-  steps:
-  - intent: divergentthinkingproblem
-  - action: divergentthinkingzero
+# - rule: FAQ Stage
+#   steps:
+#   - intent: faq
+#   - action: action_faq

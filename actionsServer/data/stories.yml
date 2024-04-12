@@ -28,3 +28,52 @@ stories:
 #   - intent: ask
 #   - action: utter_ask
 #   - action: action_refactor_question
+
+- story: teacher ask metatalk path
+  steps:
+  - intent: metatalk_ask_by_teacher
+  - action: utter_metatalk_ask_by_teacher
+
+- story: student ask metatalk path
+  steps:
+  - intent: metatalk_ask_by_student
+  - action: utter_metatalk_ask_by_student
+
+- story: metatalk divergent thinking
+  steps:
+  - intent: divergent_thinking_problem
+  - action: utter_divergent_thinking_zero
+
+- story: metatalk convergent thinking
+  steps:
+  - intent: convergent_thinking_problem
+  - action: utter_convergent_thinking_zero
+  - intent: other/chitchat
+  - action: action_check_idea_topic_relevant
+  - slot_was_set:
+    - idea_topic_relevant: true
+  - action: utter_idea_topic_relevant
+  - slot_was_set:
+    - idea_topic_relevant: false
+  - action: utter_idea_topic_irrelevant
+  # - checkpoint: check_idea_topic_relevant
+
+# - story: metatalk convergent thinking stageone idea topic relevant
+#   steps:
+#   - checkpoint: check_idea_topic_relevant
+#   - slot_was_set:
+#     - idea_topic_relevant: true
+#   - action: utter_idea_topic_relevant
+  
+  
+# - story: metatalk convergent thinking stageone idea topic irrelevant
+#   steps:
+#   - checkpoint: check_idea_topic_relevant
+#   - slot_was_set:
+#     - idea_topic_relevant: false
+#   - action: utter_idea_topic_irrelevant
+  
+- story: metatalk group collaboration
+  steps:
+  - intent: group_collaboration_problem
+  - action: utter_group_collaboration_zero

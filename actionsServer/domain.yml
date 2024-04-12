@@ -2,15 +2,30 @@ version: "3.1"
 
 intents:
   - faq
-  - other
-  - divergentthinkingproblem
+  - othercd
+  - divergent_thinking_problem
+  - convergent_thinking_problem
+  - group_collaboration_problem
+  - metatalk_ask_by_teacher
+  - metatalk_ask_by_student
 
 responses:
   utter_other/chitchat:
-  - text: "哈囉 我是學習小幫手！目前學習上有遇到什麼問題嗎"
-  divergentthinkingzero:
-  - text: "想法發散 Meta-Talk"
-
+    - text: "哈囉 我是學習小幫手！目前學習上有遇到什麼問題嗎"
+  utter_divergent_thinking_zero:
+    - text: "看來你們在想法發散上遇到了一些問題，我想請你們先進行小組討論，摘要出你們目前對於探究題目所提出的想法，並且在聊天室提出你們摘要後的想法。"
+  utter_convergent_thinking_zero:
+    - text: "看來你們需要進行想法收斂的 Meta-Talk，請你們進行小組討論，摘要出你們在這個探究活動中提出的想法，並且在聊天室提出你們摘要後的想法。"
+  utter_group_collaboration_zero:
+    - text: "看來你們需要進行小組合作的 Meta-Talk，請問你們在小組討論的過程中，有遇到什麼問題嗎？比如說，你們在討論過程中，小組的氣氛是否融洽、討論內容是否恰當，或是想法發展的過程順不順利呢？"
+  utter_metatalk_ask_by_teacher:
+    - text: "老師想要你們進行哪一種 Meta-Talk 呢？\n1. 想法收斂 2. 小組合作"
+  utter_metatalk_ask_by_student:
+    - text: "你們可以先進行討論，並把目前的想法或遇到的問題在聊天室提出來！"
+  utter_idea_topic_irrelevant:
+    - text: "你們摘要出的想法好像偏離探究題目了！請你們專注在探究題目及想法牆中討論到的想法，重新摘要一次想法吧！"
+  utter_idea_topic_relevant:
+    - text: "很好喔！我這邊也幫你們摘要了一些想法，你們討論到了『聲音在哪些地方不能傳播』、『聲音在不同介質傳播速度是否會一樣』等等。下一步，對於上述這些問題與想法， 我想請你們討論出至少三個你們認為最有興趣，或最值得花時間往下探究的問題在聊天室提出！"
 
 session_config:
   session_expiration_time: 60
@@ -19,13 +34,25 @@ session_config:
 actions:
   - action_faq
   - utter_other/chitchat
-  - divergentthinkingzero
+  - utter_divergent_thinking_zero
+  - utter_convergent_thinking_zero
+  - utter_group_collaboration_zero
+  - utter_metatalk_ask_by_teacher
+  - utter_metatalk_ask_by_student
+  - action_check_idea_topic_relevant
+  - utter_idea_topic_relevant
+  - utter_idea_topic_irrelevant
 
 slots:
   stage:
     type: text
     influence_conversation: true
     initial_value: null
+    mappings:
+      - type: custom
+  idea_topic_relevant:
+    type: bool
+    initial_value: False
     mappings:
       - type: custom
 

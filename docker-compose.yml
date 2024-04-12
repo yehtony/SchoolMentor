@@ -22,17 +22,17 @@ services:
     volumes:
       - ./actionsServer:/app
     command: train
-  test-model:
-    image: rasa/rasa:3.6.6-full
-    security_opt:
-      - seccomp:unconfined
-    working_dir: /app
-    volumes:
-      - ./actionsServer:/app
-    depends_on:
-      training-model: 
-        condition: service_completed_successfully
-    command: test
+  # test-model:
+  #   image: rasa/rasa:3.6.6-full
+  #   security_opt:
+  #     - seccomp:unconfined
+  #   working_dir: /app
+  #   volumes:
+  #     - ./actionsServer:/app
+  #   depends_on:
+  #     training-model: 
+  #       condition: service_completed_successfully
+  #   command: test
 
 
   rasa-botServer:

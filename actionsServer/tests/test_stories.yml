@@ -1,18 +1,18 @@
-stories:
-- story: other/chitchat path
-  steps:
-  - user: |
-      你覺得6班的5號可愛嗎?
-    intent: "other/chitchat"      
-  - action: "utter_other/chitchat"
-  - user: |
-      下一節課是什麼課
-    intent: other/chitchat 
-  - action: utter_other/chitchat
+# stories:
+# - story: other/chitchat path
+#   steps:
+#   - user: |
+#       你覺得6班的5號可愛嗎?
+#     intent: "other/chitchat"      
+#   - action: "utter_other/chitchat"
+#   - user: |
+#       下一節課是什麼課
+#     intent: other/chitchat 
+#   - action: utter_other/chitchat
 
-- story: faq/path
-  steps:
-    - user: |
-        磁鐵的歷史是什麼?
-      intent: faq/Kc-Ⅳ-3-1
-    - action: action_faq
+# - story: faq/path
+#   steps:
+#     - user: |
+#         磁鐵的歷史是什麼?
+#       intent: faq/Kc-Ⅳ-3-1
+#     - action: action_faq
