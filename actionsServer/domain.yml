@@ -8,6 +8,7 @@ intents:
   - group_collaboration_problem
   - metatalk_ask_by_teacher
   - metatalk_ask_by_student
+  - idea_topic
 
 responses:
   utter_other/chitchat:

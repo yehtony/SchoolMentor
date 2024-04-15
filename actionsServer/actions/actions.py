@@ -77,16 +77,14 @@ class ActionCheckIdeaTopicRelevant(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        userContent = tracker.latest_message["text"]
-        dispatcher.utter_message(text="想法發散 Meta-Talk")
-        print (userContent)
         # 调用GPT模型来检测用户的问题是否与植物主题相关
+        userContent = tracker.latest_message["text"]
+
         response = callNLP_ideaTopicRelevant(userContent)
-        print(response)
+        # dispatcher.utter_message(text=response)
 
         # 根据模型的响应来确定是否与植物主题相关
         is_relevant = response == "是"
-        print(is_relevant)
 
-        # 设置槽位的值，用于在对话中跟踪相关性
+        # # 设置槽位的值，用于在对话中跟踪相关性
         return [SlotSet("idea_topic_relevant", is_relevant)]

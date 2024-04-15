@@ -81,7 +81,7 @@ api_url = "http://ml.hsueh.tw/callapi/"
 # Call API
 def callNLPAPI(messages):
     payload = {
-        "engine": "taiwan-llama",
+        "engine": "gpt-35-turbo-16k",
         "temperature": 0,
         "max_tokens": 1000,
         "top_p": 0.95,
@@ -114,13 +114,9 @@ def callNLP_ideaTopicRelevant(userText):
     temp = [
         {
             "role": "system",
-            "content": """
-                    你要判斷學生回覆的想法與探究題目有沒有相關性，如無相關請回覆「否」，如有相關請回覆「是」，除此之外不要回覆其他訊息。
-                    探究題目：「生活中的聲音如何產生」。
-                    """,
+            "content": "你要判斷學生回覆的想法與探究題目有沒有相關性，如無相關性請回覆「否」，如有相關性請回覆「是」，除此之外不要回覆其他訊息。",
         },
         {"role": "user", "content": userText},
     ]
-    print(temp)
 
     return callNLPAPI(temp)
