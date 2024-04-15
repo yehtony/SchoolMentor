@@ -48,7 +48,7 @@ stories:
   steps:
   - intent: convergent_thinking_problem
   - action: utter_convergent_thinking_zero
-  - intent: check_idea_topic_relevant
+  - intent: idea_topic
   - action: action_check_idea_topic_relevant
   - slot_was_set:
     - idea_topic_relevant: true
