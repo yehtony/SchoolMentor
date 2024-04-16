@@ -79,8 +79,9 @@ class ActionCheckIdeaTopicRelevant(Action):
 
         # 调用GPT模型来检测用户的问题是否与植物主题相关
         userContent = tracker.latest_message["text"]
+        activity_topic = tracker.get_slot("user_question_asked")
 
-        response = callNLP_ideaTopicRelevant(userContent)
+        response = callNLP_ideaTopicRelevant(activity_topic, userContent)
         # dispatcher.utter_message(text=response)
 
         # 根据模型的响应来确定是否与植物主题相关
@@ -88,3 +89,43 @@ class ActionCheckIdeaTopicRelevant(Action):
 
         # # 设置槽位的值，用于在对话中跟踪相关性
         return [SlotSet("idea_topic_relevant", is_relevant)]
+
+
+class ActionMetatalkAskByTeacher(Action):
+    def name(self) -> Text:
+        return "action_metatalk_ask_by_teacher"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        # 调用GPT模型来检测用户的问题是否与植物主题相关
+        userContent = tracker.latest_message["text"]
+        content_list = userContent.split("|")
+
+        # dispatcher.utter_message(text=response)
+        # # 设置槽位的值，用于在对话中跟踪相关性
+        return [SlotSet("activity_topic", content_list[0])]
+
+
+class ActionMetatalkAskByStudent(Action):
+    def name(self) -> Text:
+        return "action_metatalk_ask_by_student"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        # 调用GPT模型来检测用户的问题是否与植物主题相关
+        userContent = tracker.latest_message["text"]
+        content_list = userContent.split("|")
+
+        # dispatcher.utter_message(text=response)
+        # # 设置槽位的值，用于在对话中跟踪相关性
+        return [SlotSet("activity_topic", content_list[0])]

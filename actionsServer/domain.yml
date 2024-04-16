@@ -1,8 +1,8 @@
 version: "3.1"
 
 intents:
-  - faq
-  - othercd
+  # - faq
+  # - othercd
   - divergent_thinking_problem
   - convergent_thinking_problem
   - group_collaboration_problem
@@ -33,7 +33,7 @@ session_config:
   carry_over_slots_to_new_session: true
 
 actions:
-  - action_faq
+  # - action_faq
   - utter_other/chitchat
   - utter_divergent_thinking_zero
   - utter_convergent_thinking_zero
@@ -43,6 +43,8 @@ actions:
   - action_check_idea_topic_relevant
   - utter_idea_topic_relevant
   - utter_idea_topic_irrelevant
+  - action_metatalk_ask_by_student
+  - action_metatalk_ask_by_teacher
 
 slots:
   stage:
@@ -54,6 +56,11 @@ slots:
   idea_topic_relevant:
     type: bool
     initial_value: False
+    mappings:
+      - type: custom
+  activity_topic:
+    type: text
+    initial_value: null
     mappings:
       - type: custom
 

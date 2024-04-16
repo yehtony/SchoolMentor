@@ -1,79 +1,79 @@
 version: "3.1"
 
 stories:
+  # - story: hi path
+  #   steps:
+  #   - intent: greet
+  #   - action: utter_greet
 
-# - story: hi path
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
+  # - story: chat path
+  #   steps:
+  #   - intent: chat
+  #   - action: utter_chat
 
-# - story: chat path
-#   steps:
-#   - intent: chat
-#   - action: utter_chat
+  # - story: deny path
+  #   steps:
+  #   - intent: deny
+  #   - action: utter_deny
 
-# - story: deny path
-#   steps:
-#   - intent: deny
-#   - action: utter_deny
+  # - story: affirm path
+  #   steps:
+  #   - intent: affirm
+  #   # - action: utter_affirm
+  #   - action: action_answer_question
 
-# - story: affirm path
-#   steps:
-#   - intent: affirm
-#   # - action: utter_affirm
-#   - action: action_answer_question
+  # - story: ask path
+  #   steps:
+  #   - intent: ask
+  #   - action: utter_ask
+  #   - action: action_refactor_question
 
-# - story: ask path
-#   steps:
-#   - intent: ask
-#   - action: utter_ask
-#   - action: action_refactor_question
+  - story: teacher ask metatalk path
+    steps:
+      - intent: metatalk_ask_by_teacher
+      - action: action_metatalk_ask_by_teacher
+      - action: utter_metatalk_ask_by_teacher
 
-- story: teacher ask metatalk path
-  steps:
-  - intent: metatalk_ask_by_teacher
-  - action: utter_metatalk_ask_by_teacher
+  - story: student ask metatalk path
+    steps:
+      - intent: metatalk_ask_by_student
+      - action: action_metatalk_ask_by_student
+      - action: utter_metatalk_ask_by_student
 
-- story: student ask metatalk path
-  steps:
-  - intent: metatalk_ask_by_student
-  - action: utter_metatalk_ask_by_student
+  - story: metatalk divergent thinking
+    steps:
+      - intent: divergent_thinking_problem
+      - action: utter_divergent_thinking_zero
 
-- story: metatalk divergent thinking
-  steps:
-  - intent: divergent_thinking_problem
-  - action: utter_divergent_thinking_zero
+  - story: metatalk convergent thinking
+    steps:
+      - intent: convergent_thinking_problem
+      - action: utter_convergent_thinking_zero
+      - intent: idea_topic
+      - action: action_check_idea_topic_relevant
+      # - slot_was_set:
+      #   - idea_topic_relevant: true
+      # - action: utter_idea_topic_relevant
+      # - slot_was_set:
+      #   - idea_topic_relevant: false
+      # - action: utter_idea_topic_irrelevant
+      - checkpoint: check_idea_topic_relevant
 
-- story: metatalk convergent thinking
-  steps:
-  - intent: convergent_thinking_problem
-  - action: utter_convergent_thinking_zero
-  - intent: idea_topic
-  - action: action_check_idea_topic_relevant
-  - slot_was_set:
-    - idea_topic_relevant: true
-  - action: utter_idea_topic_relevant
-  - slot_was_set:
-    - idea_topic_relevant: false
-  - action: utter_idea_topic_irrelevant
-  # - checkpoint: check_idea_topic_relevant
+  - story: metatalk convergent thinking stageone idea topic relevant
+    steps:
+      - checkpoint: check_idea_topic_relevant
+      - slot_was_set:
+          - idea_topic_relevant: true
+      - action: utter_idea_topic_relevant
 
-# - story: metatalk convergent thinking stageone idea topic relevant
-#   steps:
-#   - checkpoint: check_idea_topic_relevant
-#   - slot_was_set:
-#     - idea_topic_relevant: true
-#   - action: utter_idea_topic_relevant
-  
-  
-# - story: metatalk convergent thinking stageone idea topic irrelevant
-#   steps:
-#   - checkpoint: check_idea_topic_relevant
-#   - slot_was_set:
-#     - idea_topic_relevant: false
-#   - action: utter_idea_topic_irrelevant
-  
-- story: metatalk group collaboration
-  steps:
-  - intent: group_collaboration_problem
-  - action: utter_group_collaboration_zero
+  - story: metatalk convergent thinking stageone idea topic irrelevant
+    steps:
+      - checkpoint: check_idea_topic_relevant
+      - slot_was_set:
+          - idea_topic_relevant: false
+      - action: utter_idea_topic_irrelevant
+
+  - story: metatalk group collaboration
+    steps:
+      - intent: group_collaboration_problem
+      - action: utter_group_collaboration_zero
