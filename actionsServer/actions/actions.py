@@ -106,9 +106,9 @@ class ActionMetatalkAskByTeacher(Action):
         userContent = tracker.latest_message["text"]
         content_list = userContent.split("|")
 
-        # dispatcher.utter_message(text=response)
+        # dispatcher.utter_message(text="123")
         # # 设置槽位的值，用于在对话中跟踪相关性
-        return [SlotSet("activity_topic", content_list[0])]
+        return [SlotSet("activity_topic", content_list[1])]
 
 
 class ActionMetatalkAskByStudent(Action):
@@ -126,6 +126,7 @@ class ActionMetatalkAskByStudent(Action):
         userContent = tracker.latest_message["text"]
         content_list = userContent.split("|")
 
-        # dispatcher.utter_message(text=response)
-        # # 设置槽位的值，用于在对话中跟踪相关性
-        return [SlotSet("activity_topic", content_list[0])]
+        # dispatcher.utter_message(text="123")
+        # return []
+        # # # 设置槽位的值，用于在对话中跟踪相关性
+        return [SlotSet("activity_topic", content_list[1])]

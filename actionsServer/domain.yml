@@ -43,8 +43,8 @@ actions:
   - action_check_idea_topic_relevant
   - utter_idea_topic_relevant
   - utter_idea_topic_irrelevant
-  - action_metatalk_ask_by_student
   - action_metatalk_ask_by_teacher
+  - action_metatalk_ask_by_student
 
 slots:
   stage:
