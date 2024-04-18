@@ -102,11 +102,9 @@ class ActionMetatalkAskByTeacher(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        # 调用GPT模型来检测用户的问题是否与植物主题相关
         userContent = tracker.latest_message["text"]
         content_list = userContent.split("|")
 
-        # dispatcher.utter_message(text="123")
         # # 设置槽位的值，用于在对话中跟踪相关性
         return [SlotSet("activity_topic", content_list[1])]
 
@@ -122,11 +120,8 @@ class ActionMetatalkAskByStudent(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        # 调用GPT模型来检测用户的问题是否与植物主题相关
         userContent = tracker.latest_message["text"]
         content_list = userContent.split("|")
 
-        # dispatcher.utter_message(text="123")
-        # return []
         # # # 设置槽位的值，用于在对话中跟踪相关性
         return [SlotSet("activity_topic", content_list[1])]

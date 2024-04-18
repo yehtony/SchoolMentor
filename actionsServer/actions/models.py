@@ -113,7 +113,7 @@ def callNLP_ideaTopicRelevant(activity_topic, userText):
     message = [
         {
             "role": "system",
-            "content": f"你要判斷學生回覆的想法與探究題目有沒有相關性，如無相關性請回覆「否」，如有相關性請回覆「是」，除此之外不要回覆其他訊息。'\n'探究題目：「{activity_topic}」。",
+            "content": f"你要判斷學生回覆的想法是否有針對探究題目去做回答，如果有請回覆「是」，如果沒有請回覆「否」，除此之外不要回覆其他訊息。'\n'探究題目：「{activity_topic}」。",
         },
         {"role": "user", "content": userText},
     ]

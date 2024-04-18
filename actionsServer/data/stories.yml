@@ -51,12 +51,6 @@ stories:
       - action: utter_convergent_thinking_zero
       - intent: idea_topic
       - action: action_check_idea_topic_relevant
-      # - slot_was_set:
-      #   - idea_topic_relevant: true
-      # - action: utter_idea_topic_relevant
-      # - slot_was_set:
-      #   - idea_topic_relevant: false
-      # - action: utter_idea_topic_irrelevant
       - checkpoint: check_idea_topic_relevant
 
   - story: metatalk convergent thinking stageone idea topic relevant
