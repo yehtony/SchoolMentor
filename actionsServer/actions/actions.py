@@ -13,6 +13,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from .models import callGPT_AnswerQuestion
 from .models import callNLP_ideaTopicRelevant
+from .models import callNLP_ideaSummarize
 from .db import getKN
 import json
 import os
@@ -79,7 +80,7 @@ class ActionCheckIdeaTopicRelevant(Action):
 
         # 调用GPT模型来检测用户的问题是否与植物主题相关
         userContent = tracker.latest_message["text"]
-        activity_topic = tracker.get_slot("user_question_asked")
+        activity_topic = tracker.get_slot("activity_topic")
 
         response = callNLP_ideaTopicRelevant(activity_topic, userContent)
         # dispatcher.utter_message(text=response)
@@ -133,9 +134,9 @@ class ActionMetatalkAskByStudent(Action):
         ]
 
 
-class ActionIt(Action):
+class ActionIdeaTopicRelevant(Action):
     def name(self) -> Text:
-        return "action_it"
+        return "action_idea_summary"
 
     def run(
         self,
@@ -143,5 +144,8 @@ class ActionIt(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
+        idea_summary = tracker.get_slot("idea_summary")
+
+        response = callNLP_ideaSummarize(idea_summary)
         dispatcher.utter_message(text="123")
         return []
