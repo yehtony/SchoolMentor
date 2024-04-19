@@ -106,7 +106,10 @@ class ActionMetatalkAskByTeacher(Action):
         content_list = userContent.split("|")
 
         # # 设置槽位的值，用于在对话中跟踪相关性
-        return [SlotSet("activity_topic", content_list[1])]
+        return [
+            SlotSet("activity_topic", content_list[1]),
+            SlotSet("idea_summary", content_list[2]),
+        ]
 
 
 class ActionMetatalkAskByStudent(Action):
@@ -124,4 +127,21 @@ class ActionMetatalkAskByStudent(Action):
         content_list = userContent.split("|")
 
         # # # 设置槽位的值，用于在对话中跟踪相关性
-        return [SlotSet("activity_topic", content_list[1])]
+        return [
+            SlotSet("activity_topic", content_list[1]),
+            SlotSet("idea_summary", content_list[2]),
+        ]
+
+
+class ActionIt(Action):
+    def name(self) -> Text:
+        return "action_it"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(text="123")
+        return []

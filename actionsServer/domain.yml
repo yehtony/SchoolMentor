@@ -37,7 +37,7 @@ responses:
         - title: "我們的想法摘要："
           payload: "/我們的想法摘要"
   utter_idea_topic_relevant:
-    - text: "很好喔！我這邊也幫你們摘要了一些想法，你們討論到了『聲音在哪些地方不能傳播』、『聲音在不同介質傳播速度是否會一樣』等等。下一步，對於上述這些問題與想法， 我想請你們討論出至少三個你們認為最有興趣，或最值得花時間往下探究的問題在聊天室提出！"
+    - text: "很好喔！我這邊也幫你們摘要了一些想法："
 
 session_config:
   session_expiration_time: 60
@@ -53,6 +53,7 @@ actions:
   - utter_metatalk_ask_by_student
   - action_check_idea_topic_relevant
   - utter_idea_topic_relevant
+  - action_it
   - utter_idea_topic_irrelevant
   - action_metatalk_ask_by_teacher
   - action_metatalk_ask_by_student
@@ -70,6 +71,11 @@ slots:
     mappings:
       - type: custom
   activity_topic:
+    type: text
+    initial_value: ""
+    mappings:
+      - type: custom
+  idea_summary:
     type: text
     initial_value: ""
     mappings:

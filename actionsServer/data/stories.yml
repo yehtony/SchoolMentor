@@ -58,7 +58,8 @@ stories:
       - checkpoint: check_idea_topic_relevant
       - slot_was_set:
           - idea_topic_relevant: true
-      - action: utter_idea_topic_relevant
+      # - action: utter_idea_topic_relevant
+      - action: action_it
 
   - story: metatalk convergent thinking stageone idea topic irrelevant
     steps:
