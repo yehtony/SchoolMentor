@@ -13,7 +13,8 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from .models import callGPT_AnswerQuestion
 from .models import callNLP_ideaTopicRelevant
-from .models import callNLP_ideaSummarize
+
+# from .models import callNLP_ideaSummarize
 from .db import getKN
 import json
 import os
@@ -104,9 +105,9 @@ class ActionMetatalkAskByTeacher(Action):
     ) -> List[Dict[Text, Any]]:
 
         userContent = tracker.latest_message["text"]
-        content_list = userContent.split("|")
+        content_list = userContent.split("//")
 
-        # # 设置槽位的值，用于在对话中跟踪相关性
+        # # # 设置槽位的值，用于在对话中跟踪相关性
         return [
             SlotSet("activity_topic", content_list[1]),
             SlotSet("idea_summary", content_list[2]),
@@ -125,7 +126,7 @@ class ActionMetatalkAskByStudent(Action):
     ) -> List[Dict[Text, Any]]:
 
         userContent = tracker.latest_message["text"]
-        content_list = userContent.split("|")
+        content_list = userContent.split("//")
 
         # # # 设置槽位的值，用于在对话中跟踪相关性
         return [
@@ -134,18 +135,18 @@ class ActionMetatalkAskByStudent(Action):
         ]
 
 
-class ActionIdeaTopicRelevant(Action):
-    def name(self) -> Text:
-        return "action_idea_summary"
+# class ActionIdeaTopicRelevant(Action):
+#     def name(self) -> Text:
+#         return "action_idea_summary"
 
-    def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-    ) -> List[Dict[Text, Any]]:
-        idea_summary = tracker.get_slot("idea_summary")
+#     def run(
+#         self,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: Dict[Text, Any],
+#     ) -> List[Dict[Text, Any]]:
+#         idea_summary = tracker.get_slot("idea_summary")
 
-        response = callNLP_ideaSummarize(idea_summary)
-        dispatcher.utter_message(text="123")
-        return []
+#         response = callNLP_ideaSummarize(idea_summary)
+#         dispatcher.utter_message(text="123")
+#         return []

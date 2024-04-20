@@ -59,7 +59,7 @@ stories:
       - slot_was_set:
           - idea_topic_relevant: true
       - action: utter_idea_summary
-      - action: action_idea_summary
+      # - action: action_idea_summary
 
   - story: metatalk convergent thinking stageone idea topic irrelevant
     steps:

@@ -121,13 +121,13 @@ def callNLP_ideaTopicRelevant(activity_topic, userText):
     return callNLPAPI(message)
 
 
-def callNLP_ideaSummarize(idea_summary):
-    message = [
-        {
-            "role": "system",
-            "content": f"你要判斷學生回覆的想法是否有針對探究題目去做回答，如果有請回覆「是」，如果沒有請回覆「否」，除此之外不要回覆其他訊息。'\n'探究題目：「{idea_summary}」。",
-        },
-        {"role": "user", "content": idea_summary},
-    ]
+# def callNLP_ideaSummarize(idea_summary):
+#     message = [
+#         {
+#             "role": "system",
+#             "content": f"你要判斷學生回覆的想法是否有針對探究題目去做回答，如果有請回覆「是」，如果沒有請回覆「否」，除此之外不要回覆其他訊息。'\n'探究題目：「{idea_summary}」。",
+#         },
+#         {"role": "user", "content": idea_summary},
+#     ]
 
-    return callNLPAPI(message)
+#     return callNLPAPI(message)

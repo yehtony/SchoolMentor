@@ -16,7 +16,7 @@ responses:
   utter_divergent_thinking_zero:
     - text: "看來你們在想法發散上遇到了一些問題，我想請你們先進行小組討論，摘要出你們目前對於探究題目所提出的想法，並且在聊天室提出你們摘要後的想法。"
   utter_convergent_thinking_zero:
-    - text: "看來你們需要進行想法收斂的 Meta-Talk，請你們進行小組討論，摘要出你們在這個探究活動中提出的想法，並且在聊天室提出你們摘要後的想法。"
+    - text: "看來你們需要進行想法收斂的 Meta-Talk，請你們進行小組討論，摘要出你們在這個探究活動中提出的想法，並且在聊天室提出你們摘要後的想法。{activity_topic}"
       buttons:
         - title: "我們的想法摘要："
           payload: "/我們的想法摘要"
@@ -36,8 +36,8 @@ responses:
       buttons:
         - title: "我們的想法摘要："
           payload: "/我們的想法摘要"
-  utter_idea_topic_relevant:
-    - text: "很好喔！我這邊也幫你們摘要了一些想法："
+  utter_idea_summary:
+    - text: "很好喔！我這邊也幫你們摘要了一些想法：\n{idea_summary}\n下一步，請你們針對上述這些想法，討論出三個你們最有興趣，或認為最值得花時間往下探討的問題，並在聊天室提出吧！"
 
 session_config:
   session_expiration_time: 60
@@ -52,8 +52,8 @@ actions:
   - utter_metatalk_ask_by_teacher
   - utter_metatalk_ask_by_student
   - action_check_idea_topic_relevant
-  - utter_idea_topic_relevant
-  - action_it
+  - utter_idea_summary
+  # - action_idea_summary
   - utter_idea_topic_irrelevant
   - action_metatalk_ask_by_teacher
   - action_metatalk_ask_by_student
@@ -72,12 +72,12 @@ slots:
       - type: custom
   activity_topic:
     type: text
-    initial_value: ""
+    initial_value: null
     mappings:
       - type: custom
   idea_summary:
     type: text
-    initial_value: ""
+    initial_value: null
     mappings:
       - type: custom
 
